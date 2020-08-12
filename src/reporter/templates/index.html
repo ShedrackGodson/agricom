@@ -1,11 +1,23 @@
+{% load leaflet_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% leaflet_js %}
+    {% leaflet_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #gis {
+            width: 80%;
+            height: 700px;
+        }
+    </style>
 </head>
 <body>
     <p>This is my first GeoDjango Web App!</p>
+
+    <br>
+    {% leaflet_map 'gis' %}
 </body>
 </html>
