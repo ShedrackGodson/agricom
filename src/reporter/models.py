@@ -11,3 +11,14 @@ class Incidences(models.Model):
     
     class Meta:
         verbose_name_plural = "Incidences"
+
+
+class Districts(models.Model):
+    # python manage.py ogrinspect reporter/data/Districts.shp Districts --srid=4326 --mapping --multi
+    district_c = models.CharField(max_length=50)
+    district_n = models.CharField(max_length=50)
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return self.district_c
+    
