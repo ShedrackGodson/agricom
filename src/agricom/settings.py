@@ -25,7 +25,7 @@ SECRET_KEY = 'ti^ni)vvm4^*g+9kez4ygh&c%&4xogvrjoc=-5q1=2rg!c)i0l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'agricom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'agricom',
+        'USER': 'agricom',
+        'HOST': 'localhost',
+        'PASSWORD': 'agricom',
+        'PORT': '5432'
     }
 }
 
