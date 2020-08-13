@@ -1,6 +1,6 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import Districts, Regions, County, Ward, TZAll
+from .models import Districts, Regions, County, Ward, TZAll, Wards
 
 # Auto-generated `LayerMapping` dictionary for Districts model
 districts_mapping = {
@@ -62,6 +62,23 @@ tzall_mapping = {
     'geom': 'MULTILINESTRING',
 }
 
+
+# Auto-generated `LayerMapping` dictionary for Wards model
+wards_mapping = {
+    'region_cod': 'Region_Cod',
+    'region_nam': 'Region_Nam',
+    'district_c': 'District_C',
+    'district_n': 'District_N',
+    'ward_code': 'Ward_Code',
+    'ward_name': 'Ward_Name',
+    'division': 'Division',
+    'shape_leng': 'SHAPE_Leng',
+    'shape_area': 'SHAPE_Area',
+    'geom': 'MULTIPOLYGON',
+}
+
+wards_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data6/2012_Wards_Shapefiles/TZwards.shp'))
+
 all_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data5/tza_admbndl_ALL_20181019.shp'))
 
 ward_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data4/tza_admbnda_adm3_20181019.shp'))
@@ -74,5 +91,5 @@ county_shp = os.path .abspath(os.path.join(os.path.dirname(__file__), 'data3/Cou
 
 
 def run(verbose=True):
-    lm = LayerMapping(TZAll, all_shp, tzall_mapping, transform=False, encoding="iso-8859-1")
+    lm = LayerMapping(Wards, wards_shp, wards_mapping, transform=False, encoding="iso-8859-1")
     lm.save(strict=True, verbose=verbose)

@@ -85,4 +85,17 @@ class TZAll(models.Model):
 
     def __str__(self):
         return self.et_id
-    
+
+class Wards(models.Model):
+    region_cod = models.CharField(max_length=50)
+    region_nam = models.CharField(max_length=50)
+    district_c = models.CharField(max_length=50)
+    district_n = models.CharField(max_length=50)
+    ward_code = models.CharField(max_length=50)
+    ward_name = models.CharField(max_length=50)
+    division = models.CharField(max_length=50, null=True)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    geom = geomodel.MultiPolygonField(srid=4326)
+
+

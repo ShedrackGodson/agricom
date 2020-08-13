@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Incidences, Districts, Regions, County, Ward, TZAll
+from .models import Incidences, Districts, Regions, County, Ward, TZAll,Wards
 from leaflet.admin import LeafletGeoAdmin
 
 # Register your models here.
@@ -24,3 +24,4 @@ admin.site.register(Regions, RegionsAdmin)
 admin.site.register(County)
 admin.site.register(Ward)
 admin.site.register(TZAll)
+admin.site.register(Wards)
