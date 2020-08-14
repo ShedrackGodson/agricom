@@ -24,6 +24,38 @@
     <script type="text/javascript">
         function dataset_layers(map, options) {
             var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
+                style: function colors(feature) {
+                    switch (feature.properties.region_nam) {
+                        case "Mara":
+                            return {
+                                color: "orange"
+                            }
+                            break;
+                        
+                        case "Arusha":
+                            return {
+                                color: "purple"
+                            }
+
+                        case "Pwani":
+                            return {
+                                color: "yellow"
+                            }
+                        
+                        case "Kilimanjaro":
+                            return {
+                                color: "green"
+                            }
+                        
+                        case "Mbeya":
+                            return {
+                                color: "yellowgreen"
+                            }
+                        
+                        default:
+                            break;
+                    }
+                },
                 onEachFeature: function(feature, layer) {
                     layer.bindPopup(feature.properties.ward_name.toString());
                 }
