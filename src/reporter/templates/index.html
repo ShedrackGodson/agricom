@@ -26,7 +26,11 @@
             var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
 
             });
+            var incidences_datasets = new L.GeoJSON.AJAX("{% url 'incidences_datasets' %}", {
+
+            });
             datasets.addTo(map);
+            incidences_datasets.addTo(map);
         }
     </script>
 
