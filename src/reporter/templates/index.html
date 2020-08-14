@@ -2,6 +2,7 @@
 {% load leaflet_tags %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% leaflet_js %}
     {% leaflet_css %}
@@ -19,6 +20,7 @@
     <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js' %}"></script>
     <!-- <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js.map' %}"></script> -->
 </head>
+
 <body>
     <p>This is my first GeoDjango Web App!</p>
 
@@ -26,7 +28,14 @@
 
     <script type="text/javascript">
         function dataset_layers(map, options) {
-            var osm = 'http://{s}.title.openstreetmap.org/{z}{y}{x}.png';
+            var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            });
+            var OpenTopoMap = L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17,
+                attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            });
 
             var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
                 style: function colors(feature) {
@@ -34,45 +43,45 @@
                         case "Mara":
                             return {
                                 color: "orange",
-                                fillOpacity: 0.8
+                                    fillOpacity: 0.8
                             }
                             break;
-                        
+
                         case "Arusha":
                             return {
                                 color: "purple",
-                                fillOpacity: 0.8
+                                    fillOpacity: 0.8
                             }
 
-                        case "Pwani":
-                            return {
-                                color: "yellow",
-                                fillOpacity: 0.8
-                            }
-                        
-                        case "Kilimanjaro":
-                            return {
-                                color: "green",
-                                fillOpacity: 0.8
-                            }
-                        
-                        case "Mbeya":
-                            return {
-                                color: "yellowgreen",
-                                fillOpacity: 0.8
-                            }
-                        // And the list can go on
-                        default:
-                            break;
+                            case "Pwani":
+                                return {
+                                    color: "yellow",
+                                        fillOpacity: 0.8
+                                }
+
+                                case "Kilimanjaro":
+                                    return {
+                                        color: "green",
+                                            fillOpacity: 0.8
+                                    }
+
+                                    case "Mbeya":
+                                        return {
+                                            color: "yellowgreen",
+                                                fillOpacity: 0.8
+                                        }
+                                        // And the list can go on
+                                        default:
+                                            break;
                     }
                 },
-                onEachFeature: function(feature, layer) {
+                onEachFeature: function (feature, layer) {
                     layer.bindPopup(feature.properties.ward_name.toString());
                 }
 
             });
             var incidences_datasets = new L.GeoJSON.AJAX("{% url 'incidences_datasets' %}", {
-                onEachFeature: function(feature, layer) {
+                onEachFeature: function (feature, layer) {
                     layer.bindPopup(feature.properties.name.toString());
                 }
 
@@ -81,23 +90,24 @@
             incidences_datasets.addTo(map);
 
             var baseLayers = {
-                "OSM": osm
+                "OSM": osm,
+                "OpenTopoMap": OpenTopoMap
             }
 
             var groupedOverlays = {
                 "Layers": {
-                    "datasets": datasets,
-                    "incidences_datasets": incidences_datasets
-                },
-                // "Points of Interest": {
-                //     "Restaurants": restaurants
-                // }
+                    "region_nam": datasets,
+                    "name": incidences_datasets
+                }
+
             };
 
             L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
+
         }
     </script>
 
     {% leaflet_map 'gis' callback="window.dataset_layers" %}
 </body>
+
 </html>
