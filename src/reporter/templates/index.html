@@ -24,9 +24,15 @@
     <script type="text/javascript">
         function dataset_layers(map, options) {
             var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.ward_name.toString());
+                }
 
             });
             var incidences_datasets = new L.GeoJSON.AJAX("{% url 'incidences_datasets' %}", {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.name.toString());
+                }
 
             });
             datasets.addTo(map);
