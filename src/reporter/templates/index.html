@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'dist/leaflet-groupedlayercontrol.min.css' %}">
     <style>
         #gis {
             width: 80%;
@@ -15,6 +16,8 @@
         }
     </style>
     <script type="text/javascript" src="{% static 'dist/leaflet.ajax.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js.map' %}"></script> -->
 </head>
 <body>
     <p>This is my first GeoDjango Web App!</p>
@@ -23,6 +26,8 @@
 
     <script type="text/javascript">
         function dataset_layers(map, options) {
+            var osm = 'http://{s}.title.openstreetmap.org/{z}{y}{x}.png';
+
             var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
                 style: function colors(feature) {
                     switch (feature.properties.region_nam) {
@@ -74,6 +79,22 @@
             });
             datasets.addTo(map);
             incidences_datasets.addTo(map);
+
+            var baseLayers = {
+                "OSM": osm
+            }
+
+            var groupedOverlays = {
+                "Layers": {
+                    "datasets": datasets,
+                    "incidences_datasets": incidences_datasets
+                },
+                // "Points of Interest": {
+                //     "Restaurants": restaurants
+                // }
+            };
+
+            L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
         }
     </script>
 
