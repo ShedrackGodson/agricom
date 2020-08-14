@@ -1,6 +1,6 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import Districts, Regions, County, Ward, TZAll, Wards
+from .models import Districts, Regions, County, Ward, TZAll, Wards, Waterbodies
 
 # Auto-generated `LayerMapping` dictionary for Districts model
 districts_mapping = {
@@ -77,6 +77,23 @@ wards_mapping = {
     'geom': 'MULTIPOLYGON',
 }
 
+# Auto-generated `LayerMapping` dictionary for Waterbodies model
+waterbodies_mapping = {
+    'district': 'District',
+    'area': 'AREA',
+    'perimeter': 'PERIMETER',
+    'tz_05g_field': 'TZ_05G_',
+    'region': 'REGION',
+    'ward': 'WARD',
+    'status': 'Status',
+    'lakes': 'LAKES',
+    'shape_leng': 'Shape_Leng',
+    'shape_area': 'Shape_Area',
+    'geom': 'MULTIPOLYGON',
+}
+
+waterbodies_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data6/2012_Wards_Shapefiles/Waterbodies.shp'))
+
 wards_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data6/2012_Wards_Shapefiles/TZwards.shp'))
 
 all_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data5/tza_admbndl_ALL_20181019.shp'))
@@ -91,5 +108,5 @@ county_shp = os.path .abspath(os.path.join(os.path.dirname(__file__), 'data3/Cou
 
 
 def run(verbose=True):
-    lm = LayerMapping(Wards, wards_shp, wards_mapping, transform=False, encoding="iso-8859-1")
+    lm = LayerMapping(Waterbodies, ward_shp, waterbodies_mapping, transform=False, encoding="iso-8859-1")
     lm.save(strict=True, verbose=verbose)

@@ -1,3 +1,4 @@
+{% load static %}
 {% load leaflet_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +14,22 @@
             height: 700px;
         }
     </style>
+    <script type="text/javascript" src="{% static 'dist/leaflet.ajax.min.js' %}"></script>
 </head>
 <body>
     <p>This is my first GeoDjango Web App!</p>
 
     <br>
-    {% leaflet_map 'gis' %}
+
+    <script type="text/javascript">
+        function dataset_layers(map, options) {
+            var datasets = new L.GeoJSON.AJAX("{% url 'wards_datasets' %}", {
+
+            });
+            datasets.addTo(map);
+        }
+    </script>
+
+    {% leaflet_map 'gis' callback="window.dataset_layers" %}
 </body>
 </html>

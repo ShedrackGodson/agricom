@@ -99,3 +99,15 @@ class Wards(models.Model):
     geom = geomodel.MultiPolygonField(srid=4326)
 
 
+class Waterbodies(models.Model):
+    district = models.CharField(max_length=30)
+    area = models.FloatField()
+    perimeter = models.FloatField()
+    tz_05g_field = models.FloatField()
+    region = models.CharField(max_length=30)
+    ward = models.CharField(max_length=40)
+    status = models.CharField(max_length=20)
+    lakes = models.CharField(max_length=25)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    geom = geomodel.MultiPolygonField(srid=4326)
