@@ -9,7 +9,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'dist/routing/leaflet-routing-machine.css' %}">
     <link rel="stylesheet" href="{% static 'dist/leaflet-groupedlayercontrol.min.css' %}">
+
+    <!-- Leaflet Routing Machine CDN -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script> -->
+
     <style>
         #gis {
             width: 80%;
@@ -18,7 +26,7 @@
     </style>
     <script type="text/javascript" src="{% static 'dist/leaflet.ajax.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js' %}"></script>
-    <!-- <script type="text/javascript" src="{% static 'dist/leaflet-groupedlayercontrol.min.js.map' %}"></script> -->
+    <script type="text/javascript" src="{% static 'dist/routing/leaflet-routing-machine.js' %}"></script>
 </head>
 
 <body>
@@ -103,6 +111,13 @@
             };
 
             L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
+
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(-6.1630, 35.7516),
+                    L.latLng(-6.1630, 35.76)
+                ]
+            }).addTo(map);
 
         }
     </script>
